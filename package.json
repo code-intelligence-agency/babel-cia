@@ -1,0 +1,32 @@
+{
+  "name": "babel-cia",
+  "version": "0.0.1",
+  "description": "survey your code with CIA tools",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ava -w",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/code-intelligence-agency/babel-cia.git"
+  },
+  "keywords": [
+    "code",
+    "spy",
+    "intelligence",
+    "errorhandling"
+  ],
+  "author": "capajj@gmail.com",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/code-intelligence-agency/babel-cia/issues"
+  },
+  "homepage": "https://github.com/code-intelligence-agency/babel-cia#readme",
+  "devDependencies": {
+    "ava": "^0.16.0",
+    "standard": "^8.2.0",
+    "unpad": "^1.0.0",
+    "babel-core": "6.16.0"
+  }
+}
