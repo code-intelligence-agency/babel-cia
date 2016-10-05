@@ -25,8 +25,12 @@
   "homepage": "https://github.com/code-intelligence-agency/babel-cia#readme",
   "devDependencies": {
     "ava": "^0.16.0",
+    "babel-core": "6.16.0",
+    "chai": "^3.5.0",
+    "colors": "^1.1.2",
+    "diff": "^3.0.0",
     "standard": "^8.2.0",
-    "unpad": "^1.0.0",
-    "babel-core": "6.16.0"
+    "unexpected": "^10.18.1",
+    "unpad": "^1.0.0"
   }
 }
