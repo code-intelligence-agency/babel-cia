@@ -10,7 +10,7 @@ module.exports = function (p) {
   // console.log(p.options)
   const t = p.types
   let code
-  return {
+  const traverser = {
     name: 'cia',
     visitor: {
       Program (path, opts) {
@@ -50,21 +50,17 @@ module.exports = function (p) {
           )
         )
       },
-      FunctionDeclaration (fnPath) {
+      Function (fnPath) {
+        const params = JSON.stringify(fnPath.node.params.map((param) => {
+          return param.name
+        })).replace(/"/g, '')
+
         let done = false
-        const blacklist = ['MemberExpression', 'FunctionDeclaration', 'BlockStatement', 'Identifier']
         fnPath.traverse({
-          enter (path) {
-            if (blacklist.indexOf(path.node.type) !== -1) {
-              return
-            }
+          BlockStatement (blockPath) {
             if (!done) {
               done = true
-              const params = JSON.stringify(fnPath.node.params.map((param) => {
-                return param.name
-              })).replace(/"/g, '')
-
-              path.insertBefore(
+              blockPath.unshiftContainer('body',
                 t.memberExpression(
                   t.identifier(ciaIdentifier),
                   t.identifier(`func(${params}, "${locationToShortString(fnPath.node.id.loc)}")`)
@@ -75,6 +71,28 @@ module.exports = function (p) {
         })
       },
       VariableDeclaration (path, opts) {
+        path.traverse({
+          ArrowFunctionExpression (fnPath) {
+            const params = JSON.stringify(fnPath.node.params.map((param) => {
+              return param.name
+            })).replace(/"/g, '')
+
+            let done = false
+            fnPath.traverse({
+              BlockStatement (blockPath) {
+                if (!done) {
+                  done = true
+                  blockPath.unshiftContainer('body',
+                    t.memberExpression(
+                      t.identifier(ciaIdentifier),
+                      t.identifier(`func(${params}, "${locationToShortString(fnPath.node.loc)}")`)
+                    )
+                  )
+                }
+              }
+            })
+          }
+        })
         const nodesToInsert = [
           path.node
         ]
@@ -94,4 +112,5 @@ module.exports = function (p) {
       }
     }
   }
+  return traverser
 }
