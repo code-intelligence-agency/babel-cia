@@ -6,15 +6,14 @@ import transform from '../utils/transform'
 test((t) => {
   const source = unpad(`
     const foo = (c) => {
-      return 2
+      return c++
     }
   `)
 
   const expected = unpad(`
     const foo = c => {
-      cia.func([c], "1:9:1:12")
-
-      return cia.return(2, "8:9:8:12");;
+      cia.func([c], "1:12:3:1")
+      return cia.return(c++, "2:9:2:12");;
     };
     cia.var(foo, "1:0:3:1");
   `)
@@ -37,7 +36,7 @@ test((t) => {
 
   const expected = unpad(`
     function foo(c) {
-      cia.func([c], "1:9:1:12")
+      cia.func([c], "1:0:9:1")
 
       var a = 10;
       cia.var(a, "2:2:2:12");
@@ -69,7 +68,7 @@ test((t) => {
 
   const expected = unpad(`
     function foo(c) {
-      cia.func([c], "1:9:1:12")
+      cia.func([c], "1:0:5:1")
 
       if (c === 0) {
         return cia.return(c, "3:11:3:12");;
