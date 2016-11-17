@@ -8,6 +8,9 @@ function locationToShortString (loc) {
 
 function getParamsStr (path) {
   return JSON.stringify(path.node.params.map((param) => {
+    if (param.type === 'ObjectPattern') {
+      return param.properties.map((prop) => prop.value.name)
+    }
     return param.name
   })).replace(/"/g, '')
 }
@@ -141,10 +144,19 @@ module.exports = function (p) {
           path.node
         ]
         path.node.declarations.forEach((declaration) => {
-          nodesToInsert.push(t.memberExpression(
-            t.identifier(ciaIdentifier),
-            t.identifier(`var(${declaration.id.name}, "${locationToShortString(path.node.loc)}");`)
-          ))
+          if (declaration.id.type === 'ObjectPattern') {
+            declaration.id.properties.forEach((prop) => {
+              nodesToInsert.push(t.memberExpression(
+                t.identifier(ciaIdentifier),
+                t.identifier(`var(${prop.value.name}, "${locationToShortString(prop.loc)}");`)
+              ))
+            })
+          } else {
+            nodesToInsert.push(t.memberExpression(
+              t.identifier(ciaIdentifier),
+              t.identifier(`var(${declaration.id.name}, "${locationToShortString(path.node.loc)}");`)
+            ))
+          }
         })
         path.replaceWithMultiple(nodesToInsert)
       },

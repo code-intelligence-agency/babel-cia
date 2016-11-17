@@ -78,3 +78,20 @@ test((t) => {
   const result = transform(source)
   expect(result, 'to be', expected)
 })
+
+test((t) => {
+  const source = unpad(`
+    function foo({c, d}) {
+      return c + d
+    }
+  `)
+
+  const expected = unpad(`
+    function foo({ c, d }) {
+      cia.func([[c,d]], "1:0:3:1")
+      return cia.return(c + d, "2:9:2:14");;
+    }
+  `)
+  const result = transform(source)
+  expect(result, 'to be', expected)
+})
