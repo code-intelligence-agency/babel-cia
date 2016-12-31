@@ -1,8 +1,12 @@
-var num = 1
+var num = 2
 
-if (num < 10) console.log("Small")
-else if (num < 100)
-  console.log("Medium")
-else
-  console.log("Large")
+if (num < 10) {
+  const sm = num + 2
+  console.log(sm)
+}
+else if (num < 100) {
+  console.log('Medium')
+} else {
+  console.log('Large')
+}
 

@@ -1,11 +1,35 @@
 {
   "name": "babel-cia",
   "version": "0.0.1",
-  "description": "survey your code with CIA tools",
+  "description": "babel plugin for spying on your code",
   "main": "index.js",
   "scripts": {
     "dev": "ava -w",
     "test": "ava"
+  },
+  "dependencies": {
+    "cia-serializer": "^0.0.2",
+    "get-caller-file": "^1.0.2",
+    "get-source-code-location": "^1.0.1",
+    "hard-rejection": "^0.1.0",
+    "node-fetch": "^1.6.3",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "babel-core": "6.21.0",
+    "babel-register": "^6.18.0",
+    "bluebird": "^3.4.7",
+    "chai": "^3.5.0",
+    "co": "^4.6.0",
+    "colors": "^1.1.2",
+    "diff": "^3.2.0",
+    "loud-rejection": "^1.6.0",
+    "nodegit": "^0.16.0",
+    "standard": "^8.6.0",
+    "unexpected": "^10.21.1",
+    "unpad": "^1.0.0"
   },
   "repository": {
     "type": "git",
@@ -22,24 +46,5 @@
   "bugs": {
     "url": "https://github.com/code-intelligence-agency/babel-cia/issues"
   },
-  "homepage": "https://github.com/code-intelligence-agency/babel-cia#readme",
-  "devDependencies": {
-    "ava": "^0.17.0",
-    "babel-core": "6.18.2",
-    "babel-register": "^6.18.0",
-    "bluebird": "^3.4.6",
-    "chai": "^3.5.0",
-    "co": "^4.6.0",
-    "colors": "^1.1.2",
-    "diff": "^3.0.1",
-    "loud-rejection": "^1.6.0",
-    "nodegit": "^0.16.0",
-    "standard": "^8.5.0",
-    "unexpected": "^10.19.0",
-    "unpad": "^1.0.0"
-  },
-  "dependencies": {
-    "get-source-code-location": "^1.0.1",
-    "socket.io-client": "^1.5.1"
-  }
+  "homepage": "https://github.com/code-intelligence-agency/babel-cia#readme"
 }
