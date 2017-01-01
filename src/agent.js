@@ -1,8 +1,8 @@
-const NodeGit = require('nodegit')
 const ciaSerializer = require('cia-serializer')
 const util = require('util')
 const fetch = require('node-fetch')
 const getCallerFile = require('get-caller-file')
+const childProcess = require('mz/child_process')
 
 process.on('unhandledRejection', err => {
   if (process.env.NODE_ENV !== 'production') {
@@ -39,13 +39,19 @@ function getFileRelativePath () {
   return path.relative(pathToRepo, getCallerFile())
 }
 
+function getSha () {
+  return childProcess.exec('git rev-parse HEAD', {
+    cwd: pathToRepo
+  }).then((result) => {
+    return result[0].replace('\n', '')
+  })
+}
+
 module.exports = (daemonUrl) => {
   daemonUrl = daemonUrl || 'http://localhost:5080'
   let eventCounter = 0
   const sessionPromise = co(function* () {
-    const repo = yield NodeGit.Repository.open(pathToRepo)
-    const headCommit = yield repo.getHeadCommit()
-    const sha = headCommit.sha()
+    const sha = yield getSha()
     // todo send patchfile if git has changes
     return post(daemonUrl + '/run', {
       sha,

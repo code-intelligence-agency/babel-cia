@@ -1,32 +1,29 @@
 {
   "name": "babel-cia",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "babel plugin for spying on your code",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "ava -w",
     "test": "ava"
   },
   "dependencies": {
-    "cia-serializer": "^0.0.2",
+    "cia-serializer": "^0.0.3",
+    "co": "^4.6.0",
     "get-caller-file": "^1.0.2",
     "get-source-code-location": "^1.0.1",
     "hard-rejection": "^0.1.0",
-    "node-fetch": "^1.6.3",
-    "socket.io": "^1.7.2",
-    "socket.io-client": "^1.7.2"
+    "mz": "^2.6.0",
+    "node-fetch": "^1.6.3"
   },
   "devDependencies": {
+    "babel-register": "^6.18.0",
     "ava": "^0.17.0",
     "babel-core": "6.21.0",
-    "babel-register": "^6.18.0",
     "bluebird": "^3.4.7",
     "chai": "^3.5.0",
-    "co": "^4.6.0",
     "colors": "^1.1.2",
     "diff": "^3.2.0",
-    "loud-rejection": "^1.6.0",
-    "nodegit": "^0.16.0",
     "standard": "^8.6.0",
     "unexpected": "^10.21.1",
     "unpad": "^1.0.0"
